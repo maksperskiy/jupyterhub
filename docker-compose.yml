@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  jupyterhub:
+    build: jupyterhub
+    container_name: jupyterhub_hub
+    volumes:                         
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jupyterhub_data:/srv/jupyterhub
+    environment:
+      DOCKER_JUPYTER_IMAGE: jupyterlab/scipy-notebook:1145fb1198b2
+      DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME}_default
+      HUB_IP: jupyterhub_hub
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:jupyter.example.com"
+    ports:
+      - 8000:8000
+
+volumes:
+  jupyterhub_data:
