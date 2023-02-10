@@ -6,7 +6,7 @@ services:
     container_name: jupyterhub_hub
     volumes:                         
       - /var/run/docker.sock:/var/run/docker.sock
-      - jupyterhub_data:/srv/jupyterhub
+      - /common:/home/common
     environment:
       DOCKER_JUPYTER_IMAGE: jupyterlab/scipy-notebook:1145fb1198b2
       DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME}_default
@@ -17,5 +17,3 @@ services:
     ports:
       - 8000:8000
 
-volumes:
-  jupyterhub_data:
